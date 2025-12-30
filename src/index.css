@@ -1,0 +1,233 @@
+:root {
+  --bg-dark: #0a1a12;
+  --crimson: #C41E3A;
+  --gold: #D4AF37;
+  --forest: #004d2c;
+  --snow: #f8f9fa;
+  --glass: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Outfit', 'Inter', sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, #1a472a, #0a1a12);
+  color: var(--snow);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+header {
+  margin-bottom: 3rem;
+}
+
+header h1 {
+  font-size: 3.5rem;
+  color: var(--gold);
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: var(--snow);
+  opacity: 0.8;
+  font-size: 1.2rem;
+}
+
+/* Name Grid */
+.name-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.name-card {
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  padding: 2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.name-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border-color: var(--gold);
+}
+
+.name-card.opened {
+  opacity: 0.6;
+  background: rgba(0,0,0,0.2);
+  cursor: default;
+}
+
+.name-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: block;
+}
+
+.status-tag {
+  font-size: 0.8rem;
+  color: var(--gold);
+  margin-top: 0.5rem;
+  display: block;
+}
+
+/* Buttons */
+.primary-btn {
+  background: var(--crimson);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+  box-shadow: 0 5px 15px rgba(196, 30, 58, 0.4);
+}
+
+.primary-btn:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(5px);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 30px;
+  padding: 3rem;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.reveal-card {
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.recipient-name {
+  font-size: 2.5rem;
+  color: var(--gold);
+  font-weight: 800;
+  margin: 1.5rem 0;
+  text-decoration: underline;
+  text-underline-offset: 8px;
+}
+
+.close-btn {
+  background: transparent;
+  border: 1px solid var(--snow);
+  color: var(--snow);
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+/* Admin/Footer */
+footer {
+  margin-top: 5rem;
+  padding: 2rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.reset-trigger {
+  background: transparent;
+  color: var(--snow);
+  opacity: 0.4;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.reset-trigger:hover {
+  opacity: 1;
+  color: var(--crimson);
+}
+
+.reset-form {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.reset-form input {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--glass-border);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.animate-pop {
+  animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Snow */
+.snow-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 130px 80px, #eee, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: snow 10s linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes snow {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 200px; }
+}
