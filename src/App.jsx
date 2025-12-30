@@ -4,7 +4,7 @@ import './index.css';
 const FAMILY_NAMES = [
   'Evaline', 'Florence', 'Leonard', 'Howard', 'Faith',
   'Reinhard', 'Florida', 'Barrack', 'Bahati', 'Jaba (Kipkalya Sr.)',
-  'Fadhili', 'Kai (Kipkalya Jr.)', 'VG'
+  'Fadhili', 'Kai (Kipkalya Jr.)', 'VG', 'Dan'
 ];
 
 const ADMIN_PASSWORD = 'korir2025';
@@ -22,7 +22,8 @@ const USER_PINS = {
   'Jaba (Kipkalya Sr.)': '2831',
   'Fadhili': '5790',
   'Kai (Kipkalya Jr.)': '8024',
-  'VG': '6317'
+  'VG': '6317',
+  'Dan': '9124'
 };
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
   const [isRevealing, setIsRevealing] = useState(false);
   const [userPin, setUserPin] = useState('');
   const [pinError, setPinError] = useState('');
+  const [sessionRevealSuccess, setSessionRevealSuccess] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -52,7 +54,6 @@ function App() {
   }, []);
 
   const generatePairings = () => {
-    // 1. Generate Pairings
     let names = [...FAMILY_NAMES];
     let shuffled = [...names].sort(() => Math.random() - 0.5);
     const pairs = {};
@@ -70,6 +71,7 @@ function App() {
     setIsRevealing(true);
     setUserPin('');
     setPinError('');
+    setSessionRevealSuccess(false);
   };
 
   const handleRevealConfirm = () => {
@@ -78,6 +80,7 @@ function App() {
       setRevealedFor(newRevealed);
       localStorage.setItem('ss_revealed', JSON.stringify(newRevealed));
       setPinError('');
+      setSessionRevealSuccess(true);
     } else {
       setPinError('Incorrect PIN ❌');
     }
@@ -104,8 +107,6 @@ function App() {
       </div>
     );
   }
-
-  const isConfirmed = revealedFor?.[currentUser];
 
   return (
     <div className="container">
@@ -135,7 +136,7 @@ function App() {
         <div className="modal-overlay" onClick={() => setIsRevealing(false)}>
           <div className="reveal-card glass-card animate-pop" onClick={e => e.stopPropagation()}>
             <h2>Hello {currentUser}!</h2>
-            {!isConfirmed ? (
+            {!sessionRevealSuccess ? (
               <div className="pin-section">
                 <p>Enter your 4-digit PIN:</p>
                 <input
